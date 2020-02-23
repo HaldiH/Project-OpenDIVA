@@ -1,18 +1,19 @@
-#include "OpenDIVA/Note.hpp"
-#include "OpenDIVA/Gui.hpp"
-#include "OpenDIVA/SongLoader.hpp"
+#include "OpenDIVA/Gui/Gui.hpp"
+#include "OpenDIVA/Song.hpp"
+#include <OpenDIVA/Gui/GuiMainMenu.hpp>
 #include <QApplication>
 #include <QGraphicsView>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    auto scene = new Gui();
+    auto scene = new GuiMainMenu();
 
     scene->setFocus();
 
     auto view = new QGraphicsView(scene);
     view->show();
+    Song song(std::ifstream("test.json"));
 
-    return a.exec();
+    return QApplication::exec();
 }

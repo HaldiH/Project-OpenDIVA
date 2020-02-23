@@ -8,8 +8,6 @@
 #include <QGraphicsScene>
 
 class Gui : public QGraphicsScene {
-  public:
-    void keyPressEvent(QKeyEvent *event) override;
 };
 
 #endif // OPENDIVA_GUI_HPP
