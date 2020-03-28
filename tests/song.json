@@ -1,0 +1,32 @@
+{
+  "_notes": [
+    {
+      "_time": 0.432,
+      "_lineIndex": 2,
+      "_columnIndex": 1,
+      "_type": 3,
+      "_direction": 1
+    },
+    {
+      "_time": 1.321,
+      "_lineIndex": 2,
+      "_columnIndex": 1,
+      "_type": 3,
+      "_direction": 1
+    },
+    {
+      "_time": 3.423,
+      "_lineIndex": 2,
+      "_columnIndex": 1,
+      "_type": 3,
+      "_direction": 1
+    },
+    {
+      "_time": 4.126,
+      "_lineIndex": 2,
+      "_columnIndex": 1,
+      "_type": 3,
+      "_direction": 1
+    }
+  ]
+}

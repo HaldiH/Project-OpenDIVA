@@ -1,0 +1,13 @@
+{
+  "_version": "2.0.0",
+  "_songName": "Test",
+  "_beatsPerMinute": 120,
+  "_audioFilename": "NULL",
+  "_difficultyBeatmapSet": [
+    {
+      "_beatmapFilename": "song.json",
+      "_difficulty": 0,
+      "_difficultyLabel": "Easy"
+    }
+  ]
+}
