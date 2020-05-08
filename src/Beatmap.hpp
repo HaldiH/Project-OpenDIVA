@@ -1,40 +1,73 @@
 //
-// Created by hugo on 3/28/20.
+// Created by hugo on 4/24/20.
 //
 
-#pragma once
+#ifndef OPENDIVA_BEATMAP_HPP
+#define OPENDIVA_BEATMAP_HPP
 
-#include "Note.hpp"
-#include <QObject>
-#include <QTimer>
+#include "Sprite.hpp"
+#include <SDL2/SDL.h>
+#include <chrono>
 #include <queue>
-#include <rapidjson/document.h>
 #include <string>
 
-class Beatmap : public QObject {
-    friend class Song;
-    Q_OBJECT
+enum class Difficulty { EASY, NORMAL, HARD, EXTREME, EXTRA_EXTREME };
 
+enum class Grades { WORST, WRONG, ALMOST, SAD, SAFE, FINE, COOL };
+
+class Note {
   public:
-    enum Difficulty { EASY, NORMAL, HARD, EXPERT, EXPERT_PLUS };
+    enum Type { TARGET, HOLD_TARGET, SLIDER, CHAIN_SLIDER };
+    enum Direction { UP, DOWN, LEFT, RIGHT };
+
+    Note(int line_index, int column_index, Type, Direction);
+    [[nodiscard]] Direction direction() const;
+    [[nodiscard]] int lineIndex() const;
+    [[nodiscard]] int columnIndex() const;
+    [[nodiscard]] Type type() const;
 
   private:
-    struct Parameters {
-        Difficulty difficulty;
-        std::string_view beatmapFilename;
-        std::string_view difficultyLabel;
-    };
-    rapidjson::Document json_beatmap;
-    std::queue<Note> noteSet;
-    Parameters *_params;
+    int _lineIndex;
+    int _columnIndex;
+    Type _type;
+    Direction _direction;
+};
+
+struct NoteTime {
+    uint8_t size;
+    std::vector<Note> notes;
     float time;
-    float interval;
-    QTimer *timer;
+
+    NoteTime(Note note, float time);
+    void AddNote(Note note);
+};
+
+struct BeatmapParams {
+    std::string _beatmapFilename;
+    std::string _difficultyLabel;
+    Difficulty _difficulty;
+
+    BeatmapParams(std::string beatmapFilename, std::string difficultyLabel, Difficulty);
+};
+
+class Beatmap {
+  private:
+    bool bRunning = false, bFullScreen = false;
+    std::chrono::time_point<std::chrono::system_clock> tp0, tp1;
+    std::queue<NoteTime> noteSet;
+    BeatmapParams params;
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    SpriteSheet spriteSheet;
 
   public:
-    Beatmap(Beatmap::Parameters *params, float bpm, float offset);
-    ~Beatmap() override;
-
-  public slots:
-    void playNotes();
+    explicit Beatmap(BeatmapParams);
+    bool OnExecute();
+    bool OnInit();
+    void OnEvent(SDL_Event*);
+    void OnLoop();
+    void OnRender();
+    void OnCleanup();
 };
+
+#endif // OPENDIVA_BEATMAP_HPP

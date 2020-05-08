@@ -36,15 +36,15 @@ private:
 
 public:
   template <bool Const, class T>
-  constexpr explicit NotePack(const rapidjson::GenericArray<Const, T> &jarray) {
-    std::transform(jarray.Begin(), jarray.End(), std::back_inserter(m_notes),
-                   [](const auto &jval) {
+  constexpr explicit NotePack(const rapidjson::GenericArray<Const, T> & jsonArray) {
+    std::transform(jsonArray.Begin(), jsonArray.End(), std::back_inserter(m_notes),
+                   [](const auto & jsonVal) {
                      Note ret{};
-                     ret.time = jval["_time"].GetFloat();
-                     ret.direction = jval["_direction"].GetUint();
-                     ret.type = jval["_type"].GetUint();
-                     ret.line_idx = jval["_lineIdx"].GetUint();
-                     ret.column_idx = jval["_columnIdx"].GetUint();
+                     ret.time = jsonVal["_time"].GetFloat();
+                     ret.direction = jsonVal["_direction"].GetUint();
+                     ret.type = jsonVal["_type"].GetUint();
+                     ret.line_idx = jsonVal["_lineIndex"].GetUint();
+                     ret.column_idx = jsonVal["_columnIndex"].GetUint();
                      return ret;
                    });
   }

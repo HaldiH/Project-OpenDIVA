@@ -1,19 +1,13 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
-project(OpenDiva LANGUAGES CXX)
-
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+project(OpenDIVA LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+add_executable(OpenDIVA src/OpenDIVA.cpp src/Beatmap.cpp src/Level.cpp src/Sprite.cpp)
+target_include_directories(OpenDIVA PUBLIC thirdparty/rapidjson/include)
+target_link_libraries(OpenDIVA PUBLIC SDL2)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/Game.cpp src/Game.hpp src/Note.cpp src/Note.hpp src/NotePack.hpp src/Song.cpp src/Song.hpp src/Beatmap.cpp src/Beatmap.hpp)
-target_include_directories(${PROJECT_NAME} PUBLIC thirdparty/rapidjson/include)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
+add_executable(test src/test.cpp src/Sprite.cpp)
+target_link_libraries(test PUBLIC SDL2)

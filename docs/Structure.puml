@@ -1,0 +1,32 @@
+@startuml
+class Level {
+    A level is a song and\nsettings including a set\nof DifficultyBeatmap
+}
+
+class DifficultyBeatmap {
+    A DifficultyBeatmap contains\ninformation about a\nbeatmap and a set of notes\nloaded from a file
+}
+
+class Note {
+    A Note has a Type and\na Direction and is\ndefined by a time
+}
+
+enum Type {
+    TARGET
+    HOLD_TARGET
+    SLIDER
+    CHAIN_SLIDER
+}
+
+enum Direction {
+    UP
+    DOWN
+    LEFT
+    RIGHT
+}
+
+Note <-- Type
+Note <-- Direction
+DifficultyBeatmap <-- Note
+Level <-- DifficultyBeatmap
+@enduml
