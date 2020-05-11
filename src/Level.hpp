@@ -14,7 +14,11 @@ class Level {
     std::string_view version, songName;
     std::string audioFilename;
     float beatsPerMinute;
-    std::vector<BeatmapParams> difficultyBeatmapSet;
+    struct Params {
+        std::string beatmapFilename, difficultyLabel;
+        Beatmap::Difficulty difficulty;
+    };
+    std::vector<Params> difficultyBeatmapParamsSet;
 
   public:
     explicit Level(const std::string& levelFile);

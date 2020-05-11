@@ -12,10 +12,10 @@ class Sprite {
     friend class SpriteSheet;
 
   private:
-    SDL_Surface* sprite;
     Sprite(int width, int height, SDL_PixelFormat* format);
 
   public:
+    SDL_Surface* surface;
     explicit Sprite(std::string_view file);
     void Draw(SDL_Surface* dst, int x, int y);
 };
@@ -24,8 +24,7 @@ class SpriteSheet {
   private:
     SDL_Surface* sprite_sheet;
     uint clip_width, clip_height;
-    uint n_sprites;
-    std::vector<SDL_Rect> clip;
+    std::vector<SDL_Rect> clip_set;
 
   public:
     SpriteSheet(std::string_view file, uint n_rows, uint n_cols);
@@ -34,6 +33,7 @@ class SpriteSheet {
     [[nodiscard]] uint SpriteHeight() const;
     [[nodiscard]] uint SpritesCount() const;
     Sprite GetSprite(uint sprite_n);
+    std::vector<Sprite> GetSprites();
 };
 
 #endif // OPENDIVA_SPRITE_HPP
